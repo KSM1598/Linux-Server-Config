@@ -1,15 +1,27 @@
 # Linux-Server-Config
-This project enables the user to access the files from any location using a secured source like amazon aws cloud service.
+This project enables the user to access the files from any location using a secured source like amazon aws cloud service. 
 
-### Prerequisites 
-
-   * Virtual Server Amazon EC2
-   * Item Catalog Project, created previously.
-   * PostgreSQL
-
+### Required Installation Softwares and Dependencies::
+```
+    pip install psycopg2-binary
+    pip install httplib2
+    pip install sqlalchemy
+    pip install flask
+    sudo apt-get install libpq-dev
+    pip install requests
+    pip install --upgrade oauth2client 
+ ```
+### Private Key RSA
 RSA Private Key for grader :
    https://github.com/KSM1598/Linux-Server-Config/blob/master/Linux_server_31_01_2019.pem
 Password: ```grader``` 
+
+### Resources:
+   *  Udacity Videos
+   *  www.stackoverflow.com
+   *  www.google.com
+   *  https://www.tutorialspoint.com/flask/flask_deployment.html
+   *  Udacity Student Hub
 
 ### 1. Creating New Ubuntu Linux server instance on Amazon EC2
 
@@ -218,3 +230,9 @@ sudo apt-get dist-upgrade
 ### Launch the Web Application
 
 Open your browser to : (http://3.91.12.127.xip.io) Open your browser to : (http://ec2-3-91-12-127.compute-1.amazonaws.com)
+
+
+   
+### Very helpful READMEs in Linux Server Configuration...... :)
+     [boisalai](https://raw.githubusercontent.com/boisalai/udacity-linux-server-configuration/master/README.md)
+     [Prasanna Raj](https://raw.githubusercontent.com/Prasannarajmallipudi/Linux-Server-Configuration/master/README.md)
