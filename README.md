@@ -113,3 +113,23 @@ Login to your developer console and select your project and edit OAuth details(C
   * xip.io is a free DNS which will be the same as using IP address
   * Download the client_secrets.json file.
 
+# Softwares needed to Install and configure postgresql:
+  * ```sudo apt-get install libpq-dev python-dev``` => [Y/n]:Y
+  * ```sudo apt-get install postgresql postgresql-contrib``` => [Y/n]:Y
+Change from grader to postgres: sudo su - postgres
+Enter "psql"
+Create role: create user catalog with password 'catalog';
+Alter: alter user catalog creatdb;
+Create DataBase: create database catalog with owner catalog;
+Connect to the database : \c catalog
+Revoke public permissions: revoke all on schema public from public;
+Grant all public permissions:  grant all on schema public to catalog;
+Quit from psql: \q
+Exit from postgresql: exit
+Switch back to grader: exit
+
+Now Logged in as grader and Install git: sudo apt-get install git
+
+
+
+
