@@ -38,17 +38,16 @@ This project enables the user to access the files from any location using a secu
 # 4: Configure Firewall (UFW)
    Configure the default firewall allow incoming connections for SSH (port 2200) , HTTP (port 80) and NTP (port 123).
    Now Restart ```sudo service ssh restart```
-
-   * sudo ufw status
-   * sudo ufw default deny incoming
-   * sudo ufw default allow outgoing
-   * sudo ufw allow 2200/tcp
-   * sudo ufw allow www
-   * sudo ufw allow 123/udp
-   * sudo ufw deny 22
-   * sudo ufw enable
-     * After Proceed Option Y/n: Y
-   * To know the status of port updations ``` sudo ufw status```
+   * ```sudo ufw status```
+   * ```sudo ufw default deny incoming```
+   * ```sudo ufw default allow outgoing```
+   * ```sudo ufw allow 2200/tcp```
+   * ```sudo ufw allow www```
+   * ```sudo ufw allow 123/udp```
+   * ```sudo ufw deny 22```
+   * ```sudo ufw enable```
+     * After Proceed Option Y/n: ```Y```
+   * To know the status of port updations: ``` sudo ufw status```
         
        ```grader@ip-172-31-42-127:~$ sudo ufw status
           Status: active
