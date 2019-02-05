@@ -68,13 +68,13 @@ Password: ```grader```
           22 (v6)                    DENY        Anywhere (v6)
           123/udp (v6)               ALLOW       Anywhere (v6)```
   
-### Creating grader:
+### 5. Creating grader:
   * Create a user with password: ```sudo adduser grader```
     * password: ```grader```
   * Give the grader premissions ```sudo visudo```.
   * Now below the root add grader as ```grader ALL= (ALL:ALL) ALL```
   * Verify the grader permissions ```su -grader``` and password: ```grader```
-  * Configure keypairs for grader Create .ssh folder by mkdir /home/grader/.ssh
+  * Configure keypairs for grader Create ```.ssh``` folder by ```mkdir /home/grader/.ssh```
   * Config key pair authentication to grader 
     * ```create .ssh folder```
     * ```mkdir /home/grader/.ssh```
@@ -97,13 +97,13 @@ Password: ```grader```
   * Set the time zone for grader
       * ```sudo dpkg-reconfigure tzdata```
 
-### Deploying the project Steps: 
+### 6. Deploying the project Steps: 
   * Logged in as grader
   * Install Apache: ```sudo apt-get install apache2```
   * Install the Python 3 mod_wsgi package: ```sudo apt-get install libapache2-mod-wsgi-py3```
   * Enable mod_wsgi using: ```sudo a2enmod wsgi```
   
-### Setting up your Google Oauth2
+### 7. Setting up your Google Oauth2
 Login to your developer console and select your project and edit OAuth details(Configuration) as following
 
 ```  Javascript origin http://ip.xip.io
@@ -117,9 +117,9 @@ Login to your developer console and select your project and edit OAuth details(C
   http://ip.xip.io/callback
 ```
   * xip.io is a free DNS which will be the same as using IP address
-  * Download the client_secrets.json file.
+  * Download the ```client_secrets.json``` file.
 
-### Softwares needed to Install and configure postgresql:
+### 8. Softwares needed to Install and configure postgresql:
   * ```sudo apt-get install libpq-dev python-dev``` => [Y/n]:Y
   * ```sudo apt-get install postgresql postgresql-contrib``` => [Y/n]:Y
   * Change from grader to postgres: ```sudo su - postgres```
@@ -136,7 +136,7 @@ Login to your developer console and select your project and edit OAuth details(C
 
 Now Logged in as grader and Install git: ```sudo apt-get install git```
 
-### Clone and setup the Item Catalog project from the GitHub repository
+### 9. Clone and setup the Item Catalog project from the GitHub repository
 
 ```
 - After logging in as grader,
@@ -149,7 +149,7 @@ Now Logged in as grader and Install git: ```sudo apt-get install git```
   #engine = create_engine("sqlite:///catalog.db") engine = create_engine('postgresql://catalog:catalog@localhost/catalog')
 ```
 
-### Configure and Enable a New Virtual Host
+### 10. Configure and Enable a New Virtual Host
 
  ```sudo nano /etc/apache2/sites-available/FlaskApp.conf```
 
@@ -180,7 +180,7 @@ Now Logged in as grader and Install git: ```sudo apt-get install git```
 * Enabling site ```catalog```. 
 * To activate the new configuration, you need to run: ```service apache2 reload```
 
-### Set up the Flask application
+### 11. Set up the Flask application
   * Create ```/var/www/catalog/catalog.wsgi``` file add the following lines:
   ```* import sys
   * import logging
@@ -199,7 +199,7 @@ Run: python ```db.py```
 
 Deactivate the virtual environment: ```deactivate```
 
-### Disable the default Apache site
+### 12. Disable the default Apache site
 * Disable the default Apache site: ```sudo a2dissite 000-default.conf```
 The following prompt will be returned:
 
