@@ -63,4 +63,31 @@ This project enables the user to access the files from any location using a secu
           22 (v6)                    DENY        Anywhere (v6)
           123/udp (v6)               ALLOW       Anywhere (v6)```
   
-
+# Creating grader:
+  * Create a user with password: ```sudo adduser grader```
+    * password: ```grader```
+  * Give the grader premissions ```sudo visudo```.
+  * Now below the root add grader as ```grader ALL= (ALL:ALL) ALL```
+  * Verify the grader permissions ```su -grader``` and password: ```grader```
+  * Configure keypairs for grader Create .ssh folder by mkdir /home/grader/.ssh
+  * Config key pair authentication to grader 
+    * ```create .ssh folder```
+    * ```mkdir /home/grader/.ssh```
+    * ```su grader```
+  * Change from ubuntu to grader
+    * ```sudo cp /home/ubuntu/.ssh/authorized_keys /home/grader/.ssh/authorized_keys```
+  * Change ownership ```chown grader.grader /home/grader/.ssh```
+  * Add grader to sudogroup
+       ```sudo su
+          usermod -aG sudo grader```
+  * Change permissions to ```.ssh``` folder
+      ```chmod 700 /home/grader/.ssh
+         chmod 644 /home/grader/.ssh/authorized_keys
+         vi /etc/ssh/sshd_config```
+  * Edit authentications as permit root login ```no``` and pubkeyauthentication ```yes```(esc + :wq)
+  * Restart the service :
+      * ```sudo service ssh restart```
+  * Open the server with in the grader:
+      * ```ssh -i Linux_server_31_01_2019.pem -p 2200 grader@3.91.12.127```
+  * Set the time zone for grader
+      * ```sudo dpkg-reconfigure tzdata```
