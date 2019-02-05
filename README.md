@@ -6,11 +6,12 @@ This project enables the user to access the files from any location using a secu
    * Virtual Server Amazon EC2
    * Item Catalog Project, created previously.
    * PostgreSQL
-   * RSA Private Key for grader :
-         https://github.com/KSM1598/Linux-Server-Config/blob/master/Linux_server_31_01_2019.pem
-   * Password: ```grader``` 
 
-# 1. Creating New Ubuntu Linux server instance on Amazon EC2
+RSA Private Key for grader :
+   https://github.com/KSM1598/Linux-Server-Config/blob/master/Linux_server_31_01_2019.pem
+Password: ```grader``` 
+
+### 1. Creating New Ubuntu Linux server instance on Amazon EC2
 
    * Login to ```aws.amazon.com``` and login to default user (ubuntu)
    * Choose ```EC2``` and ```Launch Instance```.
@@ -19,14 +20,14 @@ This project enables the user to access the files from any location using a secu
    * ```ssh -i Linux_server_31_01_2019.pem -p 2200 grader@3.91.12.127```
    * 22 is Port by Default, Later we need to Change 2200.
   
-# 2: Update and upgrade installed packages
+### 2: Update and upgrade installed packages
 
   ``` * sudo apt-get update
    * sudo apt-get upgrade
    * sudo apt-get install unattended-upgrades
    * sudo apt-get dist-upgrade
 ```
-# 3. Change SSH port from 22 to 2200, also remove the comments for all the properties changed.
+### 3. Change SSH port from 22 to 2200, also remove the comments for all the properties changed.
 
    * Edit File using: ``` sudo vi /etc/ssh/sshd_config ```
    * Change Port number 22 to 2200
@@ -39,7 +40,7 @@ This project enables the user to access the files from any location using a secu
    * To check port 2200: Working or Not
    * ```ssh -i linux_31.pem -p 2200 ubuntu@3.90.89.13```
 
-# 4: Configure Firewall (UFW)
+### 4: Configure Firewall (UFW)
    Configure the default firewall allow incoming connections for ```SSH (port 2200)```, ```HTTP (port 80)``` and ```NTP (port 123)```.
    Now Restart ```sudo service ssh restart```
    ```* sudo ufw status
@@ -67,7 +68,7 @@ This project enables the user to access the files from any location using a secu
           22 (v6)                    DENY        Anywhere (v6)
           123/udp (v6)               ALLOW       Anywhere (v6)```
   
-# Creating grader:
+### Creating grader:
   * Create a user with password: ```sudo adduser grader```
     * password: ```grader```
   * Give the grader premissions ```sudo visudo```.
@@ -96,13 +97,13 @@ This project enables the user to access the files from any location using a secu
   * Set the time zone for grader
       * ```sudo dpkg-reconfigure tzdata```
 
-# Deploying the project Steps: 
+### Deploying the project Steps: 
   * Logged in as grader
   * Install Apache: ```sudo apt-get install apache2```
   * Install the Python 3 mod_wsgi package: ```sudo apt-get install libapache2-mod-wsgi-py3```
   * Enable mod_wsgi using: ```sudo a2enmod wsgi```
   
-# Setting up your Google Oauth2
+### Setting up your Google Oauth2
 Login to your developer console and select your project and edit OAuth details(Configuration) as following
 
 ```  Javascript origin http://ip.xip.io
@@ -118,7 +119,7 @@ Login to your developer console and select your project and edit OAuth details(C
   * xip.io is a free DNS which will be the same as using IP address
   * Download the client_secrets.json file.
 
-# Softwares needed to Install and configure postgresql:
+### Softwares needed to Install and configure postgresql:
   * ```sudo apt-get install libpq-dev python-dev``` => [Y/n]:Y
   * ```sudo apt-get install postgresql postgresql-contrib``` => [Y/n]:Y
   * Change from grader to postgres: ```sudo su - postgres```
@@ -135,7 +136,7 @@ Login to your developer console and select your project and edit OAuth details(C
 
 Now Logged in as grader and Install git: ```sudo apt-get install git```
 
-# Clone and setup the Item Catalog project from the GitHub repository
+### Clone and setup the Item Catalog project from the GitHub repository
 
 ```
 - After logging in as grader,
@@ -148,9 +149,9 @@ Now Logged in as grader and Install git: ```sudo apt-get install git```
   #engine = create_engine("sqlite:///catalog.db") engine = create_engine('postgresql://catalog:catalog@localhost/catalog')
 ```
 
-# Configure and Enable a New Virtual Host
+### Configure and Enable a New Virtual Host
 
- sudo nano /etc/apache2/sites-available/FlaskApp.conf
+ ```sudo nano /etc/apache2/sites-available/FlaskApp.conf```
 
 ```<VirtualHost *:80>
     ServerName http://3.91.12.127.xip.io
@@ -179,7 +180,7 @@ Now Logged in as grader and Install git: ```sudo apt-get install git```
 * Enabling site ```catalog```. 
 * To activate the new configuration, you need to run: ```service apache2 reload```
 
-# Set up the Flask application
+### Set up the Flask application
   * Create ```/var/www/catalog/catalog.wsgi``` file add the following lines:
   ```* import sys
   * import logging
@@ -198,7 +199,7 @@ Run: python ```db.py```
 
 Deactivate the virtual environment: ```deactivate```
 
-# Disable the default Apache site
+### Disable the default Apache site
 * Disable the default Apache site: ```sudo a2dissite 000-default.conf```
 The following prompt will be returned:
 
@@ -207,13 +208,13 @@ The following prompt will be returned:
 * To activate the new configuration, you need to run: ```service apache2 reload```
 Reload Apache: ```sudo service apache2 reload```
 
-# Final Step
+### Final Step
 * Security Updates and package updates Try this commands
 ```sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get dist-upgrade
 ```
 
-# Launch the Web Application
+### Launch the Web Application
 
 Open your browser to : (http://3.91.12.127.xip.io) Open your browser to : (http://ec2-3-91-12-127.compute-1.amazonaws.com)
