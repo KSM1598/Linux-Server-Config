@@ -90,3 +90,26 @@ This project enables the user to access the files from any location using a secu
       * ```ssh -i Linux_server_31_01_2019.pem -p 2200 grader@3.91.12.127```
   * Set the time zone for grader
       * ```sudo dpkg-reconfigure tzdata```
+
+# Deploying the project Steps: 
+  * Logged in as grader
+  * Install Apache: ```sudo apt-get install apache2```
+  * Install the Python 3 mod_wsgi package: ```sudo apt-get install libapache2-mod-wsgi-py3```
+  * Enable mod_wsgi using: ```sudo a2enmod wsgi```
+  
+# Setting up your Google Oauth2
+Login to your developer console and select your project and edit OAuth details(Configuration) as following
+
+```  Javascript origin http://ip.xip.io
+                  
+  redirect URI
+
+  http://ip.xip.io/login
+
+  http://ip.xip.io/gconnect
+
+  http://ip.xip.io/callback
+```
+  * xip.io is a free DNS which will be the same as using IP address
+  * Download the client_secrets.json file.
+
