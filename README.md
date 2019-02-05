@@ -47,6 +47,20 @@ This project enables the user to access the files from any location using a secu
    * sudo ufw allow 123/udp
    * sudo ufw deny 22
    * sudo ufw enable
-     * After Proceed Option Y/N - Y
+     * After Proceed Option Y/n: Y
    * To know the status of port updations ``` sudo ufw status```
-    
+        
+       ```grader@ip-172-31-42-127:~$ sudo ufw status
+          Status: active
+          To                         Action      From
+          --                         ------      ----
+          2200/tcp                   ALLOW       Anywhere
+          80/tcp                     ALLOW       Anywhere
+          22                         DENY        Anywhere
+          123/udp                    ALLOW       Anywhere
+          2200/tcp (v6)              ALLOW       Anywhere (v6)
+          80/tcp (v6)                ALLOW       Anywhere (v6)
+          22 (v6)                    DENY        Anywhere (v6)
+          123/udp (v6)               ALLOW       Anywhere (v6)```
+  
+
