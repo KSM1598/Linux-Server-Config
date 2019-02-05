@@ -130,6 +130,86 @@ Switch back to grader: exit
 
 Now Logged in as grader and Install git: sudo apt-get install git
 
+# Clone and setup the Item Catalog project from the GitHub repository
+
+```
+- After logging in as grader,
+- From the /var/www directory, Clone the catalog project:
+- sudo git clone `https://github.com/username/catalog.git`
+- Change the ownership of the catalog directory to grader using: sudo chown -R grader:grader catalog/.
+- Change to the `/var/www/catalog/catalog` directory.
+- Rename the mainpage.py file to __init__.py using: mv mainpage.py __init__.py.
+- We need to change `sqlite` to `postgresql` create_engine in __init__.py,dbp.py and sample_database.py
+  #engine = create_engine("sqlite:///catalog.db") engine = create_engine('postgresql://catalog:catalog@localhost/catalog')
+```
+
+# Configure and Enable a New Virtual Host
+
+ sudo nano /etc/apache2/sites-available/FlaskApp.conf
+
+```<VirtualHost *:80>
+    ServerName http://3.91.12.127.xip.io
+    ServerAlias ec2-3-91-12-127.compute-1.amazonaws.com
+    ServerAdmin ubuntu@3.91.12.127
+    WSGIDaemonProcess catalog python-path=/var/www/catalog:/var/www/catalog/catalog/venv3/lib/python3.6/site-packages
+    WSGIProcessGroup catalog
+    WSGIScriptAlias / /var/www/catalog/catalog.wsgi
+    <Directory /var/www/catalog/catalog/>
+        Order allow,deny
+        Allow from all
+    </Directory>
+    Alias /static /var/www/catalog/catalog/static
+    <Directory /var/www/catalog/catalog/static/>
+        Order allow,deny
+        Allow from all
+    </Directory>
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    LogLevel warn
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+  </VirtualHost>
+```
 
 
 
+* Enable the virtual host ```sudo a2ensite catalog```
+* Enabling site ```catalog```. To activate the new configuration
+* You need to run: ```service apache2 reload```
+
+# Set up the Flask application
+  * Create ```/var/www/catalog/catalog.wsgi``` file add the following lines:
+  ```* import sys
+  * import logging
+  * logging.basicConfig(stream=sys.stderr)
+  * sys.path.insert(0, "/var/www/catalog/")
+  * from catalog import app as application
+  * application.secret_key = 'supersecretkey'
+ ```
+Restart Apache: ```sudo service apache2 restart```
+
+From the ```/var/www/catalog/catalog/``` directory
+
+Activate the virtual environment: ```. venv3/bin/activate```
+
+Run: python ```db.py```
+
+Deactivate the virtual environment: ```deactivate```
+
+# Disable the default Apache site
+* Disable the default Apache site: ```sudo a2dissite 000-default.conf```
+The following prompt will be returned:
+
+```Site 000-default disabled```
+
+* To activate the new configuration, you need to run: ```service apache2 reload```
+Reload Apache: ```sudo service apache2 reload```
+
+# Final Step
+* Security Updates and package updates Try this commands
+```sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get dist-upgrade
+```
+
+# Launch the Web Application
+
+Open your browser to : (http://3.91.12.127.xip.io) Open your browser to : (http://ec2-3-91-12-127.compute-1.amazonaws.com)
